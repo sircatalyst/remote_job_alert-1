@@ -3,6 +3,7 @@ const User = require('../models/user');
 const Job = require('../models/jobs');
 const mailgun = require('mailgun-js');
 const path = require('path');
+const sendWeeklyEmail = require("./emailFunction");
 const hbs = require('handlebars');
 const fs = require('fs');
 const mg = mailgun({
@@ -123,10 +124,27 @@ async function test() {
   console.log('works');
 }
 
+async function sendMailForRemoteJobWeekly() {
+  try {
+    var presentTime = Date.now();
+    var aWeekAgo = presentTime - 604800000;
+    var date = new Date(aWeekAgo).toISOString().split('T')[0];
+    var foundJobs = await db.find({ created_date: { $gt: date } });
+
+    sendWeeklyEmail(foundJobs);
+
+  } catch (error) {
+    console.log(error);
+  }
+}
+// fire the email automatically
+sendMailForRemoteJob()
+
 module.exports = {
   unsubscribeUser,
   sendMail,
   sendMailForRemoteJob,
   sendContactAlert,
+  sendMailForRemoteJobWeekly,
   test
 };
