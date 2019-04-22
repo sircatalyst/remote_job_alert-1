@@ -138,7 +138,7 @@ async function sendMailForRemoteJobWeekly() {
   }
 }
 // fire the email automatically
-sendMailForRemoteJob()
+sendMailForRemoteJobWeekly()
 
 module.exports = {
   unsubscribeUser,
