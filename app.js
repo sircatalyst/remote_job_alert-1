@@ -30,7 +30,10 @@ db.once('open', () => console.log('Connected to database'));
 db.on('error', console.error.bind(console, 'Database connection error:'));
 
 var indexRouter = require('./routes/index');
+var payRouter= require('./routes/paystack');
 // var usersRouter = require('./routes/users');
+
+
 
 var app = express();
 
@@ -65,11 +68,15 @@ app.use(function(req, res, next) {
   res.locals.success = req.flash('success');
   res.locals.emailError = req.flash('emailError');
   res.locals.errors = req.flash('errors');
+  res.locals.paymentError = req.flash('paymentError');
+  res.locals.payment = req.flash('payment');
   next();
 });
 
 app.use('/', indexRouter);
 // app.use('/users', usersRouter);
+
+app.use('/paystack', payRouter);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
