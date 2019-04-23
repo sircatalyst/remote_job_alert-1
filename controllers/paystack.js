@@ -1,25 +1,18 @@
 const _ = require('lodash');
-const request = require('request');
 const db = require('./promise').DbAgent;
-
-const secretKey = 'replace this witht the secret key below';
-// const secretKey = 'sk_test_a66878c14f256d4f84f31591e07280d6d18b78b4';
-
-const paystack = require('paystack')(secretKey);
-
-const { Payment } = require('../models/payment');
-
-const { verifyPayment } = require('../config/paystack')(request);
+const secretKey = 'sk_live_9f957be2c68dda29dc62a2048a12ef2901f16a57';
+const paystack = require('paystack')(process.env.PAYSTACK_SECRET_KEY);
 
 const Paystack = {
 	async pay(req, res) {
 		try {
-			const amount = 500000; //#5000 Naira
-			const email = req.body.email;
-
+			const data = req.body;
+			const amount = 50000; //#500 Naira
+			const email = data.email;
 			const response = await paystack.transaction.initialize({ amount, email });
-			res.redirect(response.data.authorization_url);
+			return res.redirect(response.data.authorization_url);
 		} catch (err) {
+			console.log(err);
 			next(err);
 		}
 	},
@@ -73,3 +66,29 @@ const Paystack = {
 };
 
 module.exports = Paystack;
+
+// const _ = require('lodash');
+// const request = require('request');
+// const db = require('./promise').DbAgent;
+
+// const secretKey = 'replace this witht the secret key below';
+// // const secretKey = 'sk_test_a66878c14f256d4f84f31591e07280d6d18b78b4';
+
+// const paystack = require('paystack')(secretKey);
+
+// const { Payment } = require('../models/payment');
+
+// const { verifyPayment } = require('../config/paystack')(request);
+
+// const Paystack = {
+// 	async pay(req, res) {
+// 		try {
+// 			const amount = 500000; //#5000 Naira
+// 			const email = req.body.email;
+
+// 			const response = await paystack.transaction.initialize({ amount, email });
+// 			res.redirect(response.data.authorization_url);
+// 		} catch (err) {
+// 			next(err);
+// 		}
+// 	},
