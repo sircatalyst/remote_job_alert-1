@@ -9,9 +9,9 @@ class Db {
 	 * @param {string} text
 	 * @returns {object} Return all
 	 */
-	static find(queryText, paginationOptions) {
+	static find(param) {
 		return new Promise((resolve, reject) => {
-			Jobs.paginate(queryText, paginationOptions)
+			Jobs.find(param)
 				.then(res => {
 					resolve(res);
 				})

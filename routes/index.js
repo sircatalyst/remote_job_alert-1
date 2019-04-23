@@ -100,7 +100,7 @@ router.get('/jobs_api', Jobs.fetchData);
 router.post('/jobs', Jobs.create);
 
 /////////////////////////////////////////////////
-router.get('/jobs/:job_id', Jobs.get_one);
+// router.get('/jobs/:job_id', Jobs.get_one);
 //router.get("/jobs/:job_id/edit", Jobs.edit);
 router.post('/jobs/:job_id', Jobs.update_job);
 router.get('/jobs/:job_id/delete', Jobs.cancel_job);
@@ -112,8 +112,8 @@ router.post('/pay', Paystack.pay);
 
 router.get('/invoice', Home.get_summary);
 //Dashboard Links
-router.get('/managejobs', Jobs.get_all);
-router.get('/manageapplicants', Applicant.get_all);
+// router.get('/managejobs', Jobs.get_all);  //*
+// router.get('/manageapplicants', Applicant.get_all);
 
 //Deleting Applicant details
 router.get('/applicant/:applicant_id/delete', Applicant.cancel);

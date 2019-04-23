@@ -66,6 +66,6 @@ const jobSchema = new Schema(
     timestamps: true
   }
 );
-jobSchema.plugin(mongoosePaginate);
+// jobSchema.plugin(mongoosePaginate);
 
 module.exports = mongoose.model("Job", jobSchema);
